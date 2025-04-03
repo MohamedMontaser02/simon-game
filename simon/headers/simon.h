@@ -21,9 +21,9 @@ void setupbuttons(void);
 
 void generate_random_sequence(uint8_t level);
 void displaythesequence(uint8_t level);
-uint8_t readplayer(uint8_t level);
 bool checksequence(uint8_t sequence_ ,uint8_t inputValue);
-//void reset (void);
+void reset (void);
+uint8_t readplayer();
 
 
 

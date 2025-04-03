@@ -15,7 +15,6 @@
 
 //#define maxlevels  100
 uint8_t sequence[100] ={0};
-unsigned int player_input;
 
 void setupleds(void)
 {
@@ -44,7 +43,7 @@ void setupbuttons(void)
 
 void generate_random_sequence(uint8_t level)
 {
-	for(unsigned int i =0; i < level ; i++)
+	for(uint8_t i =0; i < level ; i++)
 	{
 		sequence[i] = (rand() % 4 );
 	}
@@ -63,32 +62,33 @@ void displaythesequence(uint8_t level)
 	}
 }
 
-uint8_t readplayer(uint8_t level)
+uint8_t readplayer()
 {
+	uint8_t player_input=7;
 	while(1)
 	{
 		if(readBit(PINC,0) == 0 )
 		{
 			player_input=0;
-			_delay_ms(10);
+			_delay_ms(50);
 			break;
 		}
 		else if(readBit(PINC,1) == 0 )
 		{
 			player_input=1;
-			_delay_ms(10);
+			_delay_ms(50);
 			break;
 		}
 		else if(readBit(PINC,2) == 0 )
 		{
 			player_input=2;
-			_delay_ms(10);
+			_delay_ms(50);
 			break;
 		}
 		else if(readBit(PINC,3) == 0 )
 		{
 			player_input=3;
-			_delay_ms(10);
+			_delay_ms(50);
 			break;
 		}
 	}
@@ -101,7 +101,7 @@ bool checksequence(uint8_t i ,uint8_t inputValue)
 	//sequence // 2 0 1 1
 	//user       2 0 3 1
 	
-	if(player_input == sequence[i])
+	if(inputValue == sequence[i])
 	{
 		return 1;
 	}
@@ -112,12 +112,11 @@ bool checksequence(uint8_t i ,uint8_t inputValue)
 }
 
 
-/*void reset (void)
+void reset (void)
 {
-	level_=0 ;
-	generate_random_sequence(level_);
-	displaythesequence(level_);
-	readplayer(level_);
-	//checksequence(sequence ,inputValue);
+	setBit(PORTB,0);
+	setBit(PORTB,1);
+	setBit(PORTB,2);
+	setBit(PORTB,3);
 	
-}*/
+}
