@@ -30,10 +30,13 @@ void setupbuttons(void)
 {
 	clearBit(DDRC,0);
 	setBit(PORTC,0);
+	
 	clearBit(DDRC,1);
 	setBit(PORTC,1);
+	
 	clearBit(DDRC,2);
 	setBit(PORTC,2);
+	
 	clearBit(DDRC,3);
 	setBit(PORTC,3);
 }
@@ -64,24 +67,28 @@ uint8_t readplayer(uint8_t level)
 {
 	while(1)
 	{
-		if(readBit(PINB,0) == 0 )
+		if(readBit(PINC,0) == 0 )
 		{
 			player_input=0;
+			_delay_ms(10);
 			break;
 		}
-		else if(readBit(PINB,1) == 0 )
+		else if(readBit(PINC,1) == 0 )
 		{
 			player_input=1;
+			_delay_ms(10);
 			break;
 		}
-		else if(readBit(PINB,2) == 0 )
+		else if(readBit(PINC,2) == 0 )
 		{
 			player_input=2;
+			_delay_ms(10);
 			break;
 		}
-		else if(readBit(PINB,3) == 0 )
+		else if(readBit(PINC,3) == 0 )
 		{
 			player_input=3;
+			_delay_ms(10);
 			break;
 		}
 	}
