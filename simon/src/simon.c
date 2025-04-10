@@ -15,7 +15,7 @@
 
 //#define maxlevels  100
 uint8_t sequence[100] ={0};
-uint8_t blink_time =1000;
+uint16_t blink_time =1000;
 
 
 void setupleds(void)
@@ -185,9 +185,9 @@ void failure_indicator(void)
 		}
 }
 
-void costum_delay(uint8_t _time)
+void costum_delay(uint16_t _time)
 {
-	for(uint8_t i=0 ; i<_time ; i++)
+	for(uint16_t i=0 ; i<_time ; i++)
 	{
 		_delay_ms(1);
 	}

@@ -29,7 +29,7 @@ void button_press_buzz(uint8_t player_input);
 void success_indicator(void);
 void failure_indicator(void);
 
-void costum_delay(uint8_t _time);
+void costum_delay(uint16_t _time);
 
 void reset (void);
 uint8_t readplayer();
