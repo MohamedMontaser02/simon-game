@@ -15,6 +15,8 @@
 
 //#define maxlevels  100
 uint8_t sequence[100] ={0};
+uint8_t blink_time =1000;
+
 
 void setupleds(void)
 {
@@ -40,6 +42,10 @@ void setupbuttons(void)
 	setBit(PORTC,3);
 }
 
+void setup_buzzer(void)
+{
+	setBit(DDRB,4);
+}
 
 void generate_random_sequence(uint8_t level)
 {
@@ -52,12 +58,13 @@ void generate_random_sequence(uint8_t level)
 
 void displaythesequence(uint8_t level)
 {
+
 	for(unsigned int i =0; i < level ; i++)
 	{
 		setBit(PORTB,sequence[i]);
-		_delay_ms(500);
+		costum_delay(blink_time);
 		clearBit(PORTB,sequence[i]);
-		_delay_ms(500);
+		costum_delay(blink_time);
 		
 	}
 }
@@ -70,24 +77,28 @@ uint8_t readplayer()
 		if(readBit(PINC,0) == 0 )
 		{
 			player_input=0;
+			button_press_buzz(player_input);
 			_delay_ms(50);
 			break;
 		}
 		else if(readBit(PINC,1) == 0 )
 		{
 			player_input=1;
+			button_press_buzz(player_input);
 			_delay_ms(50);
 			break;
 		}
 		else if(readBit(PINC,2) == 0 )
 		{
 			player_input=2;
+			button_press_buzz(player_input);
 			_delay_ms(50);
 			break;
 		}
 		else if(readBit(PINC,3) == 0 )
 		{
 			player_input=3;
+			button_press_buzz(player_input);
 			_delay_ms(50);
 			break;
 		}
@@ -120,3 +131,68 @@ void reset (void)
 	setBit(PORTB,3);
 	
 }
+
+void button_press_buzz(uint8_t player_input)
+{
+	
+	while(readBit(PINC,player_input)==0)
+	{
+		setBit(PORTB,4);
+	}
+	 clearBit(PORTB, 4);
+			 
+}
+
+
+void success_indicator(void)
+{
+	
+	for(uint8_t i=0 ; i<3 ;i++)
+	{
+		
+		for(uint8_t j=0 ; j<=4 ;j++)
+		{   
+			setBit(PORTB,j);
+		}
+		_delay_ms(100);
+		
+		for(uint8_t j=0 ; j<=4 ;j++)
+		{
+			clearBit(PORTB,j);
+		}
+		_delay_ms(100);
+	}
+	
+	if(blink_time>=50 )
+	{
+		blink_time =blink_time -50 ;
+	}
+}
+
+
+void failure_indicator(void)
+{
+		
+		for(uint8_t j=0 ; j<=4 ;j++)
+		{
+			setBit(PORTB,j);
+		}
+		_delay_ms(500);
+		
+		for(uint8_t j=0 ; j<=4 ;j++)
+		{
+			clearBit(PORTB,j);
+		}
+}
+
+void costum_delay(uint8_t _time)
+{
+	for(uint8_t i=0 ; i<_time ; i++)
+	{
+		_delay_ms(1);
+	}
+}
+		
+		
+		
+		
